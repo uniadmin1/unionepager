@@ -435,8 +435,9 @@
 
         /* Comparison Cards */
         .comparison-card {
-            background: rgba(30, 30, 30, 0.8);
-            border: 2px solid rgba(0, 100, 255, 0.2);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
         }
@@ -444,19 +445,39 @@
         .comparison-card::before {
             content: '';
             position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.05) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .comparison-card::after {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            width: 24px;
-            height: 24px;
-            background: radial-gradient(circle, rgba(0, 150, 255, 0.3), transparent);
-            border-radius: 50%;
-            filter: blur(10px);
-            animation: float 6s ease-in-out infinite;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 100, 255, 0.02) 0%, rgba(0, 50, 255, 0.05) 50%, rgba(0, 150, 255, 0.02) 100%);
+            z-index: -1;
         }
 
         .uni-card {
             border: 2px solid var(--secondary-blue);
-            background: linear-gradient(145deg, rgba(0, 100, 255, 0.1), rgba(0, 50, 100, 0.05));
+            background: linear-gradient(145deg, rgba(0, 100, 255, 0.08), rgba(0, 50, 100, 0.04));
+            backdrop-filter: blur(25px);
+            box-shadow: 0 10px 40px rgba(0, 204, 255, 0.15);
+        }
+
+        .uni-card::before {
+            background: radial-gradient(circle, rgba(0, 204, 255, 0.1) 0%, transparent 60%);
+        }
+
+        .uni-card::after {
+            background: linear-gradient(135deg, rgba(0, 204, 255, 0.05) 0%, rgba(0, 100, 255, 0.08) 50%, rgba(0, 150, 255, 0.03) 100%);
         }
 
         .company-title {
@@ -551,14 +572,20 @@
         }
 
         .comparison-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: var(--secondary-blue);
-            box-shadow: 0 20px 40px rgba(0, 204, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 204, 255, 0.2);
+            backdrop-filter: blur(30px);
         }
 
         .uni-card:hover {
-            box-shadow: 0 25px 50px rgba(0, 204, 255, 0.4);
-            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 204, 255, 0.3);
+            transform: translateY(-12px) scale(1.01);
+            border-color: var(--primary-blue);
+        }
+
+        .uni-card:hover::before {
+            background: radial-gradient(circle, rgba(0, 204, 255, 0.15) 0%, transparent 50%);
         }
 
         /* Contact Section */
@@ -608,7 +635,108 @@
             }
         }
 
-        /* Animations */
+        /* Password Protection Styles */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #0d1117 50%, #0a0a0a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .password-container {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .password-logo {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .password-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .password-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .password-form {
+            margin-bottom: 20px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .password-input:focus {
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 20px rgba(0, 204, 255, 0.2);
+        }
+
+        .password-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.3);
+        }
+
+        .password-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 204, 255, 0.4);
+        }
+
+        .password-error {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .main-content {
+            width: 100%;
+            height: 100%;
+        }
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -622,7 +750,31 @@
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
+    <!-- Password Protection Overlay -->
+    <div id="passwordOverlay" class="password-overlay">
+        <div class="password-container">
+            <div class="password-logo gradient-text">UNI</div>
+            <h2 class="password-title">Investor Access</h2>
+            <p class="password-subtitle">Enter password to view confidential materials</p>
+            <div class="password-form">
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    class="password-input" 
+                    placeholder="Password"
+                    autocomplete="off"
+                >
+                <button onclick="checkPassword()" class="password-btn">
+                    Access Deck
+                </button>
+            </div>
+            <div id="passwordError" class="password-error"></div>
+        </div>
+    </div>
+
+    <!-- Main Site Content (Initially Hidden) -->
+    <div id="mainContent" class="main-content" style="display: none;">
+        <div class="bg-animation"></div>
     
     <nav class="navbar">
         <div class="nav-container">
@@ -793,9 +945,9 @@
     </section>
 
     <section id="investors" class="section">
-        <h2>🧠 Why Big Tech LIKELY Won’t Clone UNI — They’ll Acquire It</h2>
+        <h2>🧠 Who Can't Afford NOT to Own UNI</h2>
         <p class="section-description">
-           Big Tech’s DNA is fundamentally incompatible with UNI. Their infrastructure is optimized for screen time, not real-world movement. UNI is built to drive exploration, not scrolling — and that requires a ground-up reimagining of both incentives and interface. Rebuilding that from scratch would be expensive, slow, and culturally off-brand. The more strategic, capital-efficient path is simple: acquire UNI
+            UNI becomes defensive infrastructure for every major platform. The question isn't "who will buy UNI" — it's "who can survive without it?"
         </p>
         
         <div class="grid grid-2">
@@ -847,7 +999,7 @@
                         <span class="metric-icon">💰</span>
                         Revenue Streams
                     </h4>
-                    <p class="metric-description">Subscriptions (Plat, Elite), partner commissions, Encore Coins, advertising, data products</p>
+                    <p class="metric-description">Subscriptions (Plat, Elite), partner bookings, API commissions, Encore Coins, advertising, data products</p>
                 </div>
 
                 <div class="scores-section">
@@ -1107,7 +1259,39 @@
         </div>
     </section>
 
+    </div>
+    <!-- End Main Content -->
+
     <script>
+        // Password Protection
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (password === 'UNIcorn') {
+                document.getElementById('passwordOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                localStorage.setItem('unicornAccess', 'true');
+            } else {
+                errorDiv.textContent = 'Incorrect password. Access denied.';
+                errorDiv.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').style.borderColor = '#ff4444';
+            }
+        }
+
+        // Check if already authenticated
+        if (localStorage.getItem('unicornAccess') === 'true') {
+            document.getElementById('passwordOverlay').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
