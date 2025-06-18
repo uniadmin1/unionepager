@@ -433,6 +433,134 @@
         .logo-google { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%234285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="%2334A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="%23FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="%23EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>'); }
         .logo-meta { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%231877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'); }
 
+        /* Comparison Cards */
+        .comparison-card {
+            background: rgba(30, 30, 30, 0.8);
+            border: 2px solid rgba(0, 100, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.3), transparent);
+            border-radius: 50%;
+            filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .uni-card {
+            border: 2px solid var(--secondary-blue);
+            background: linear-gradient(145deg, rgba(0, 100, 255, 0.1), rgba(0, 50, 100, 0.05));
+        }
+
+        .company-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--secondary-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .company-icon {
+            font-size: 28px;
+        }
+
+        .metric-section {
+            margin-bottom: 20px;
+        }
+
+        .metric-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .metric-icon {
+            font-size: 18px;
+            color: var(--secondary-blue);
+        }
+
+        .metric-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .scores-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 100, 255, 0.2);
+        }
+
+        .score-item {
+            margin-bottom: 16px;
+        }
+
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .score-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary-blue);
+        }
+
+        .score-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .score-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 3px;
+            transition: width 0.8s ease;
+            box-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+        }
+
+        .score-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 20px 40px rgba(0, 204, 255, 0.2);
+        }
+
+        .uni-card:hover {
+            box-shadow: 0 25px 50px rgba(0, 204, 255, 0.4);
+            transform: translateY(-8px) scale(1.02);
+        }
+
         /* Contact Section */
         .contact-section {
             text-align: center;
@@ -526,7 +654,7 @@
                         <span class="flow-emoji">🌐</span>
                         <h4>Mass Aggregation</h4>
                     </div>
-                    <p>UNI syncs with platforms like Google, Yelp, Ticketmaster, and OpenTable to centralize every live event, experience, and venue into one intelligent system, updated in real time. For the first time, a city’s entire social landscape runs through one ultra-powerful platform.</p>
+                    <p>UNI syncs with platforms like Google, Yelp, Ticketmaster, and OpenTable to centralize every live event, experience, and venue into one intelligent system, updated in real time. For the first time, a city's entire social landscape runs through one ultra-powerful platform.</p>
                 </div>
                 
                 <div class="flow-arrow">⬇</div>
@@ -536,7 +664,7 @@
                         <span class="flow-emoji">🧠</span>
                         <h4>AI Filtering</h4>
                     </div>
-                    <p>UNI’s Experience Engine filters everything you could do — ranking it by your mood, context, and timing. It also gives you an AI search tool to instantly generate personalized plans or find hyper-specific experiences.</p>
+                    <p>UNI's Experience Engine filters everything you could do — ranking it by your mood, context, and timing. It also gives you an AI search tool to instantly generate personalized plans or find hyper-specific experiences.</p>
                 </div>
                 
                 <div class="flow-arrow">⬇</div>
@@ -665,9 +793,9 @@
     </section>
 
     <section id="investors" class="section">
-        <h2>🧠 Who Can't Afford NOT to Own UNI</h2>
+        <h2>🧠 Why Big Tech LIKELY Won’t Clone UNI — They’ll Acquire It</h2>
         <p class="section-description">
-            UNI becomes defensive infrastructure for every major platform. The question isn't "who will buy UNI" — it's "who can survive without it?"
+           Big Tech’s DNA is fundamentally incompatible with UNI. Their infrastructure is optimized for screen time, not real-world movement. UNI is built to drive exploration, not scrolling — and that requires a ground-up reimagining of both incentives and interface. Rebuilding that from scratch would be expensive, slow, and culturally off-brand. The more strategic, capital-efficient path is simple: acquire UNI
         </p>
         
         <div class="grid grid-2">
@@ -693,32 +821,271 @@
     </section>
 
     <section class="section">
-        <h2>🧨 Why This Can't Be Replicated</h2>
+        <h2>⚔️ Company Business Model Analysis</h2>
         <p class="section-description">
-            Big Tech can't build UNI because their DNA is fundamentally incompatible. UNI requires a company whose DNA is designed around real-world experiences. We're the only team with the incentive alignment to build this properly.
+            Current solutions are fragmented, outdated, and missing the social layer. UNI is the first platform to unify discovery, social connection, and behavioral intelligence into one seamless experience.
         </p>
         
         <div class="grid grid-2">
-            <div class="card fade-in" style="border-left: 4px solid var(--secondary-blue);">
-                <div class="card-title">Google's Business Model Problem</div>
-                <p>Maximize screen time and ad clicks — UNI gets people OFF phones and into experiences</p>
+            <!-- UNI Card -->
+            <div class="card fade-in comparison-card uni-card">
+                <h3 class="company-title">
+                    <span class="company-icon">✨</span>
+                    UNI
+                </h3>
+                
+                <div class="metric-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">👥</span>
+                        Business Model
+                    </h4>
+                    <p class="metric-description">Real-world cultural OS + social graph. Full-stack consumer + B2B network.</p>
+                </div>
+
+                <div class="metric-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">💰</span>
+                        Revenue Streams
+                    </h4>
+                    <p class="metric-description">Subscriptions (Plat, Elite), partner commissions, Encore Coins, advertising, data products</p>
+                </div>
+
+                <div class="scores-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">📊</span>
+                        Key Metrics
+                    </h4>
+                    
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Data Value:</span>
+                            <span class="score-value">5/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 100%;"></div>
+                        </div>
+                        <p class="score-desc">Richest real-world behavioral data (social DNA)</p>
+                    </div>
+
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Virality:</span>
+                            <span class="score-value">5/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 100%;"></div>
+                        </div>
+                        <p class="score-desc">Encore Coins, quests, referrals, friend feed</p>
+                    </div>
+
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Risk Profile:</span>
+                            <span class="score-value">5/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 100%;"></div>
+                        </div>
+                        <p class="score-desc">High upside, fast growth; minimal legacy drag</p>
+                    </div>
+                </div>
             </div>
-            <div class="card fade-in" style="border-left: 4px solid var(--secondary-blue);">
-                <div class="card-title">Meta's Existential Problem</div>
-                <p>"Meta" literally means beyond physical reality — building UNI would contradict their entire metaverse thesis</p>
+
+            <!-- Eventbrite Card -->
+            <div class="card fade-in comparison-card">
+                <h3 class="company-title">
+                    <span class="company-icon">🎫</span>
+                    Eventbrite
+                </h3>
+                
+                <div class="metric-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">👥</span>
+                        Business Model
+                    </h4>
+                    <p class="metric-description">Event ticketing marketplace; primarily B2B self-serve for hosts.</p>
+                </div>
+
+                <div class="metric-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">💰</span>
+                        Revenue Streams
+                    </h4>
+                    <p class="metric-description">Ticket fees, payment processing, ads (minor)</p>
+                </div>
+
+                <div class="scores-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">📊</span>
+                        Key Metrics
+                    </h4>
+                    
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Data Value:</span>
+                            <span class="score-value">2/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 40%;"></div>
+                        </div>
+                        <p class="score-desc">Basic transactional data</p>
+                    </div>
+
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Virality:</span>
+                            <span class="score-value">1/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 20%;"></div>
+                        </div>
+                        <p class="score-desc">Minimal</p>
+                    </div>
+
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Risk Profile:</span>
+                            <span class="score-value">2/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 40%;"></div>
+                        </div>
+                        <p class="score-desc">Plateaued growth, not Gen Z-native</p>
+                    </div>
+                </div>
             </div>
-            <div class="card fade-in" style="border-left: 4px solid var(--secondary-blue);">
-                <div class="card-title">Apple's Hardware Focus</div>
-                <p>They build devices, not social experiences — would need to completely reinvent their product philosophy</p>
+
+            <!-- Meetup Card -->
+            <div class="card fade-in comparison-card">
+                <h3 class="company-title">
+                    <span class="company-icon">👥</span>
+                    Meetup
+                </h3>
+                
+                <div class="metric-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">👥</span>
+                        Business Model
+                    </h4>
+                    <p class="metric-description">Niche community platform for in-person group creation.</p>
+                </div>
+
+                <div class="metric-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">💰</span>
+                        Revenue Streams
+                    </h4>
+                    <p class="metric-description">Subscription for organizers, minimal B2B</p>
+                </div>
+
+                <div class="scores-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">📊</span>
+                        Key Metrics
+                    </h4>
+                    
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Data Value:</span>
+                            <span class="score-value">1/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 20%;"></div>
+                        </div>
+                        <p class="score-desc">Low-res group interests</p>
+                    </div>
+
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Virality:</span>
+                            <span class="score-value">1/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 20%;"></div>
+                        </div>
+                        <p class="score-desc">Weak social loop</p>
+                    </div>
+
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Risk Profile:</span>
+                            <span class="score-value">1/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 20%;"></div>
+                        </div>
+                        <p class="score-desc">Dated infra, stagnant user base</p>
+                    </div>
+                </div>
             </div>
-            <div class="card fade-in" style="border-left: 4px solid var(--secondary-blue);">
-                <div class="card-title">API-First Technical Moat</div>
-                <p>Speed and scale impossible to match with traditional development approaches</p>
+
+            <!-- Snapchat Card -->
+            <div class="card fade-in comparison-card">
+                <h3 class="company-title">
+                    <span class="company-icon">📱</span>
+                    Snapchat
+                </h3>
+                
+                <div class="metric-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">👥</span>
+                        Business Model
+                    </h4>
+                    <p class="metric-description">Content-first social app, optimized for digital engagement + media.</p>
+                </div>
+
+                <div class="metric-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">💰</span>
+                        Revenue Streams
+                    </h4>
+                    <p class="metric-description">Ads, AR lenses, Snap Kit, in-app purchases</p>
+                </div>
+
+                <div class="scores-section">
+                    <h4 class="metric-title">
+                        <span class="metric-icon">📊</span>
+                        Key Metrics
+                    </h4>
+                    
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Data Value:</span>
+                            <span class="score-value">4/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 80%;"></div>
+                        </div>
+                        <p class="score-desc">Visual, message, and location data</p>
+                    </div>
+
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Virality:</span>
+                            <span class="score-value">4/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 80%;"></div>
+                        </div>
+                        <p class="score-desc">High – but digital-only</p>
+                    </div>
+
+                    <div class="score-item">
+                        <div class="score-header">
+                            <span class="score-label">Risk Profile:</span>
+                            <span class="score-value">3/5</span>
+                        </div>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 60%;"></div>
+                        </div>
+                        <p class="score-desc">Misaligned with real-world behavior</p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <p style="text-align: center; font-size: 18px; color: var(--text-secondary); margin-top: 40px; font-style: italic;">
-            Every city needs UNI. Every platform will want to own UNI. Only one team gets to build it.
+            <strong style="color: var(--secondary-blue);">The verdict:</strong> UNI solves what they can't — complete real-world social intelligence with massive scalable revenue potential.
         </p>
     </section>
 
@@ -730,7 +1097,7 @@
                 <span style="color: var(--secondary-blue);"> $1M Raise</span> | Available for intro calls immediately
             </p>
             <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 30px;">
-                We’re raising $1M on a SAFE with a $10M valuation cap, structured as a milestone-based release: $500K upfront to reach 100K users or $250K in revenue, and $500K released upon hitting that milestone.
+                We're raising $1M on a SAFE with a $10M valuation cap, structured as a milestone-based release: $500K upfront to reach 100K users or $250K in revenue, and $500K released upon hitting that milestone.
             </p>
             <div class="contact-links">
                 <a href="https://docsend.com/documents/29627750" class="btn-primary" target="_blank">📊 Full Pitch Deck</a>
