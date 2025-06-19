@@ -484,10 +484,33 @@
             font-size: 24px;
             font-weight: 700;
             color: var(--secondary-blue);
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 10px;
+            justify-content: space-between;
+        }
+
+        .company-ticker {
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(0, 100, 255, 0.1);
+            color: var(--secondary-blue);
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 100, 255, 0.2);
+        }
+
+        .company-valuation {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(0, 100, 255, 0.1), rgba(0, 204, 255, 0.05));
+            border-radius: 10px;
+            border: 1px solid rgba(0, 100, 255, 0.2);
         }
 
         .company-icon {
@@ -894,7 +917,7 @@
         <div class="grid grid-2">
             <div class="card fade-in">
                 <div class="card-title">API Commission Revenue</div>
-                <p>Ticketmaster, VividSeats, Eventbrite, Resy integrations (2-8% per transaction)</p>
+                <p>Ticketmaster, AirBnb, Uber, Opentable, etc. integrations (2-8% per transaction)</p>
             </div>
             <div class="card fade-in">
                 <div class="card-title">UNI Platinum Subscriptions</div>
@@ -1048,7 +1071,9 @@
                 <h3 class="company-title">
                     <span class="company-icon">🎫</span>
                     Eventbrite
+                    <span class="company-ticker">NYSE:EB</span>
                 </h3>
+                <div class="company-valuation">Market Cap:$240M</div>
                 
                 <div class="metric-section">
                     <h4 class="metric-title">
@@ -1176,7 +1201,9 @@
                 <h3 class="company-title">
                     <span class="company-icon">📱</span>
                     Snapchat
+                    <span class="company-ticker">NYESE:SNAP</span>
                 </h3>
+                <div class="company-valuation">Market Cap:$13B</div>
                 
                 <div class="metric-section">
                     <h4 class="metric-title">
