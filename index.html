@@ -1246,14 +1246,600 @@
                 <div class="card-description">Returns at current $10M valuation</div>
             </div>
         </div>
-
-        <div style="text-align: center; margin-top: 60px;">
-            <a href="https://econchart-ca1r.vercel.app/" target="_blank" class="btn-primary" style="font-size: 20px; padding: 18px 35px;">
-                📊 Try our Revenue Simulator
-            </a>
+        
         </div>
     </section>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI Revenue Analytics - Futuristic Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(0, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(-100px); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ffff, #0099ff, #0066cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            margin-bottom: 0.5rem;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
+            to { text-shadow: 0 0 40px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 153, 255, 0.6); }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            font-weight: 300;
+            color: #b3d9ff;
+        }
+
+        .chart-container {
+            background: rgba(15, 26, 46, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1.2s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .control-btn {
+            background: linear-gradient(45deg, rgba(15, 26, 46, 0.8), rgba(26, 35, 50, 0.8));
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #b3d9ff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .control-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+            border-color: rgba(0, 255, 255, 0.6);
+            color: #00ffff;
+        }
+
+        .control-btn.active {
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(0, 153, 255, 0.2));
+            border-color: rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            color: #00ffff;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            animation: slideInFromBottom 1.8s ease-out;
+        }
+
+        @keyframes slideInFromBottom {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .stat-card {
+            background: rgba(15, 26, 46, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ffff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            position: relative;
+            z-index: 2;
+            color: #b3d9ff;
+        }
+
+        #revenueChart {
+            position: relative;
+            z-index: 2;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00ffff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .chart-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div id="particles"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Revenue Analytics (Year 1 Post-UNI Day)</h1>
+            <p class="subtitle">Real projections. Real engagement. Real world. See how UNI turns users into unstoppable momentum.</p>
+        </div>
+
+  
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="peakRevenue">$4.6M</div>
+                <div class="stat-label">Peak Monthly Revenue</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalUsers">1M</div>
+                <div class="stat-label">Target Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="growthRate">4500%</div>
+                <div class="stat-label">Revenue Growth</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgRevPerUser">$4.60</div>
+                <div class="stat-label">Revenue Per User</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const users = [10000, 50000, 100000, 250000, 500000, 1000000];
+        const subRevenue = [30000, 150000, 300000, 750000, 1500000, 3000000];
+        const coinRevenue = [6000, 30000, 60000, 150000, 300000, 600000];
+        const brandRevenue = [10000, 50000, 100000, 250000, 500000, 1000000];
+        const totalRevenue = subRevenue.map((sub, i) => sub + coinRevenue[i] + brandRevenue[i]);
+
+        // Format user labels
+        const userLabels = users.map(u => u < 1000000 ? `${u/1000}K` : '1M');
+
+        // Create gradient
+        let chart;
+        
+        function createGradient(ctx, chartArea, color1, color2) {
+            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            return gradient;
+        }
+
+        // Chart configuration
+        const config = {
+            type: 'line',
+            data: {
+                labels: userLabels,
+                datasets: [{
+                    label: 'Total MRR',
+                    data: totalRevenue,
+                    borderColor: '#00ffff',
+                    backgroundColor: function(context) {
+                        const chart = context.chart;
+                        const {ctx, chartArea} = chart;
+                        if (!chartArea) return null;
+                        return createGradient(ctx, chartArea, 'rgba(0, 255, 255, 0.1)', 'rgba(0, 255, 255, 0.3)');
+                    },
+                    borderWidth: 4,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#00ffff',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 3,
+                    pointRadius: 8,
+                    pointHoverRadius: 12,
+                    pointHoverBackgroundColor: '#00ffff',
+                    pointHoverBorderColor: '#ffffff',
+                    pointHoverBorderWidth: 4,
+                }, {
+                    label: 'Subscription Revenue',
+                    data: subRevenue,
+                    borderColor: '#0099ff',
+                    backgroundColor: 'rgba(0, 153, 255, 0.1)',
+                    borderWidth: 3,
+                    borderDash: [10, 5],
+                    fill: false,
+                    tension: 0.4,
+                    pointBackgroundColor: '#0099ff',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 10,
+                }, {
+                    label: 'Encore Coin Revenue',
+                    data: coinRevenue,
+                    borderColor: '#0066cc',
+                    backgroundColor: 'rgba(0, 102, 204, 0.1)',
+                    borderWidth: 3,
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.4,
+                    pointBackgroundColor: '#0066cc',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 10,
+                }, {
+                    label: 'Brand/Ads Revenue',
+                    data: brandRevenue,
+                    borderColor: '#1a2332',
+                    backgroundColor: 'rgba(26, 35, 50, 0.1)',
+                    borderWidth: 3,
+                    borderDash: [15, 5],
+                    fill: false,
+                    tension: 0.4,
+                    pointBackgroundColor: '#1a2332',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 10,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#b3d9ff',
+                            font: {
+                                size: 14,
+                                weight: '500'
+                            },
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 26, 46, 0.9)',
+                        titleColor: '#00ffff',
+                        bodyColor: '#b3d9ff',
+                        borderColor: '#00ffff',
+                        borderWidth: 1,
+                        cornerRadius: 10,
+                        displayColors: true,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Total Users',
+                            color: '#00ffff',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 255, 255, 0.2)',
+                            lineWidth: 1
+                        },
+                        ticks: {
+                            color: '#b3d9ff',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Monthly Recurring Revenue (USD)',
+                            color: '#00ffff',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 255, 255, 0.2)',
+                            lineWidth: 1
+                        },
+                        ticks: {
+                            color: '#b3d9ff',
+                            font: {
+                                size: 12
+                            },
+                            callback: function(value) {
+                                return '$' + (value / 1000000).toFixed(1) + 'M';
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        };
+
+        // Initialize chart
+        function initChart() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            chart = new Chart(ctx, config);
+            
+            // Set canvas height
+            document.getElementById('revenueChart').style.height = '500px';
+        }
+
+        // Toggle line visibility
+        function toggleLine(type) {
+            const datasetMap = {
+                'total': 0,
+                'subscription': 1,
+                'coin': 2,
+                'brand': 3
+            };
+            
+            const datasetIndex = datasetMap[type];
+            const meta = chart.getDatasetMeta(datasetIndex);
+            meta.hidden = !meta.hidden;
+            chart.update();
+            
+            // Update button state
+            const buttons = document.querySelectorAll('.control-btn');
+            const button = buttons[datasetIndex];
+            button.classList.toggle('active');
+        }
+
+        // Animate chart
+        function animateChart() {
+            chart.update('active');
+            
+            // Add some visual feedback
+            const button = event.target;
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 150);
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Animate statistics on load
+        function animateStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach((stat, index) => {
+                setTimeout(() => {
+                    stat.style.animation = 'none';
+                    stat.offsetHeight; // Trigger reflow
+                    stat.style.animation = 'glow 2s ease-in-out infinite alternate';
+                }, index * 200);
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                initChart();
+                createParticles();
+                animateStats();
+            }, 500);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (chart) {
+                chart.resize();
+            }
+        });
+    </script>
+</body>
+</html>
     <section id="comparison" class="section">
         <h2>⚡ UNI vs. The Competition</h2>
         <p class="section-description">
