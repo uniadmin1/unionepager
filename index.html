@@ -417,7 +417,7 @@
         }
 
         .hero h1 {
-            font-size: clamp(3.5rem, 10vw, 7rem);
+            font-size: clamp(2rem, 8vw, 4rem);
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 30px;
@@ -1254,9 +1254,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNI Revenue Analytics - Futuristic Dashboard</title>
+    <title>UNI Revenue Analytics - Brand/Ads Focused</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
+        :root {
+            --primary-blue: #00ccff;
+            --secondary-blue: #0099ff;
+            --accent-pink: #ff0080;
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #1a2332;
+            --text-primary: #ffffff;
+            --text-secondary: #b3d9ff;
+            --text-muted: #7399c4;
+            --border-color: rgba(0, 255, 255, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -1264,185 +1276,101 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+            color: var(--text-primary);
             min-height: 100vh;
-            color: white;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Animated background particles */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
         .particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(0, 255, 255, 0.6);
+            width: 3px;
+            height: 3px;
+            background: var(--primary-blue);
             border-radius: 50%;
-            animation: float 20s infinite linear;
+            animation: float 20s linear infinite;
+            opacity: 0.6;
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) translateX(-100px); opacity: 0; }
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 20px var(--primary-blue);
+            }
+            100% {
+                text-shadow: 0 0 30px var(--primary-blue), 0 0 40px var(--primary-blue);
+            }
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 10;
+            padding: 40px 20px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 3rem;
-            animation: slideDown 1s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            margin-bottom: 60px;
         }
 
         .title {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #00ffff, #0099ff, #0066cc);
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 20px;
             text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
-            margin-bottom: 0.5rem;
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
-            to { text-shadow: 0 0 40px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 153, 255, 0.6); }
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            font-weight: 300;
-            color: #b3d9ff;
-        }
-
-        .chart-container {
-            background: rgba(15, 26, 46, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            animation: fadeInUp 1.2s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        @keyframes fadeInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .control-btn {
-            background: linear-gradient(45deg, rgba(15, 26, 46, 0.8), rgba(26, 35, 50, 0.8));
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            color: #b3d9ff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .control-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
-            transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .control-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .control-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
-            border-color: rgba(0, 255, 255, 0.6);
-            color: #00ffff;
-        }
-
-        .control-btn.active {
-            background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(0, 153, 255, 0.2));
-            border-color: rgba(0, 255, 255, 0.8);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-            color: #00ffff;
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            animation: slideInFromBottom 1.8s ease-out;
-        }
-
-        @keyframes slideInFromBottom {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
         .stat-card {
-            background: rgba(15, 26, 46, 0.6);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
@@ -1456,89 +1384,78 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(0, 255, 255, 0.1), transparent);
-            animation: rotate 4s linear infinite;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
             opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         .stat-card:hover::before {
+            animation: shine 1.5s ease-in-out;
             opacity: 1;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
-            border-color: rgba(0, 255, 255, 0.5);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
         }
 
         .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #00ffff, #0099ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            z-index: 2;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 0.5rem;
-            position: relative;
-            z-index: 2;
-            color: #b3d9ff;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chart-container {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 0 60px rgba(0, 255, 255, 0.2);
         }
 
         #revenueChart {
-            position: relative;
-            z-index: 2;
-        }
-
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 400px;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(0, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #00ffff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            height: 500px !important;
+            width: 100% !important;
         }
 
         @media (max-width: 768px) {
             .title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
-            .container {
-                padding: 1rem;
+            .subtitle {
+                font-size: 1.1rem;
             }
             
-            .chart-container {
-                padding: 1rem;
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animated background particles -->
     <div id="particles"></div>
 
     <div class="container">
@@ -1547,11 +1464,9 @@
             <p class="subtitle">Real projections. Real engagement. Real world. See how UNI turns users into unstoppable momentum.</p>
         </div>
 
-  
-
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value" id="peakRevenue">$4.6M</div>
+                <div class="stat-value" id="peakRevenue">$5.2M</div>
                 <div class="stat-label">Peak Monthly Revenue</div>
             </div>
             <div class="stat-card">
@@ -1559,11 +1474,11 @@
                 <div class="stat-label">Target Users</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="growthRate">4500%</div>
+                <div class="stat-value" id="growthRate">5100%</div>
                 <div class="stat-label">Revenue Growth</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value" id="avgRevPerUser">$4.60</div>
+                <div class="stat-value" id="avgRevPerUser">$5.20</div>
                 <div class="stat-label">Revenue Per User</div>
             </div>
         </div>
@@ -1574,11 +1489,11 @@
     </div>
 
     <script>
-        // Data
+        // Updated Data - Brand/Ads revenue is now the primary driver
         const users = [10000, 50000, 100000, 250000, 500000, 1000000];
-        const subRevenue = [30000, 150000, 300000, 750000, 1500000, 3000000];
-        const coinRevenue = [6000, 30000, 60000, 150000, 300000, 600000];
-        const brandRevenue = [10000, 50000, 100000, 250000, 500000, 1000000];
+        const subRevenue = [8000, 25000, 40000, 75000, 120000, 200000]; // Significantly reduced
+        const coinRevenue = [6000, 30000, 60000, 150000, 300000, 600000]; // Kept similar
+        const brandRevenue = [28000, 175000, 400000, 1200000, 2800000, 4400000]; // Massively increased
         const totalRevenue = subRevenue.map((sub, i) => sub + coinRevenue[i] + brandRevenue[i]);
 
         // Format user labels
@@ -1621,19 +1536,23 @@
                     pointHoverBorderColor: '#ffffff',
                     pointHoverBorderWidth: 4,
                 }, {
-                    label: 'Subscription Revenue',
-                    data: subRevenue,
-                    borderColor: '#0099ff',
-                    backgroundColor: 'rgba(0, 153, 255, 0.1)',
-                    borderWidth: 3,
-                    borderDash: [10, 5],
-                    fill: false,
+                    label: 'Brand/Ads Revenue',
+                    data: brandRevenue,
+                    borderColor: '#ff6b35',
+                    backgroundColor: function(context) {
+                        const chart = context.chart;
+                        const {ctx, chartArea} = chart;
+                        if (!chartArea) return null;
+                        return createGradient(ctx, chartArea, 'rgba(255, 107, 53, 0.1)', 'rgba(255, 107, 53, 0.2)');
+                    },
+                    borderWidth: 4,
+                    fill: true,
                     tension: 0.4,
-                    pointBackgroundColor: '#0099ff',
+                    pointBackgroundColor: '#ff6b35',
                     pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    pointRadius: 6,
-                    pointHoverRadius: 10,
+                    pointBorderWidth: 3,
+                    pointRadius: 8,
+                    pointHoverRadius: 12,
                 }, {
                     label: 'Encore Coin Revenue',
                     data: coinRevenue,
@@ -1649,19 +1568,19 @@
                     pointRadius: 6,
                     pointHoverRadius: 10,
                 }, {
-                    label: 'Brand/Ads Revenue',
-                    data: brandRevenue,
-                    borderColor: '#1a2332',
-                    backgroundColor: 'rgba(26, 35, 50, 0.1)',
-                    borderWidth: 3,
-                    borderDash: [15, 5],
+                    label: 'Subscription Revenue',
+                    data: subRevenue,
+                    borderColor: '#666666',
+                    backgroundColor: 'rgba(102, 102, 102, 0.1)',
+                    borderWidth: 2,
+                    borderDash: [10, 5],
                     fill: false,
                     tension: 0.4,
-                    pointBackgroundColor: '#1a2332',
+                    pointBackgroundColor: '#666666',
                     pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    pointRadius: 6,
-                    pointHoverRadius: 10,
+                    pointBorderWidth: 1,
+                    pointRadius: 4,
+                    pointHoverRadius: 8,
                 }]
             },
             options: {
@@ -1692,7 +1611,8 @@
                         displayColors: true,
                         callbacks: {
                             label: function(context) {
-                                return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+                                const percentage = ((context.parsed.y / totalRevenue[context.dataIndex]) * 100).toFixed(1);
+                                return context.dataset.label + ': $' + context.parsed.y.toLocaleString() + ' (' + percentage + '%)';
                             }
                         }
                     }
@@ -1759,41 +1679,6 @@
         function initChart() {
             const ctx = document.getElementById('revenueChart').getContext('2d');
             chart = new Chart(ctx, config);
-            
-            // Set canvas height
-            document.getElementById('revenueChart').style.height = '500px';
-        }
-
-        // Toggle line visibility
-        function toggleLine(type) {
-            const datasetMap = {
-                'total': 0,
-                'subscription': 1,
-                'coin': 2,
-                'brand': 3
-            };
-            
-            const datasetIndex = datasetMap[type];
-            const meta = chart.getDatasetMeta(datasetIndex);
-            meta.hidden = !meta.hidden;
-            chart.update();
-            
-            // Update button state
-            const buttons = document.querySelectorAll('.control-btn');
-            const button = buttons[datasetIndex];
-            button.classList.toggle('active');
-        }
-
-        // Animate chart
-        function animateChart() {
-            chart.update('active');
-            
-            // Add some visual feedback
-            const button = event.target;
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                button.style.transform = '';
-            }, 150);
         }
 
         // Create floating particles
@@ -1840,131 +1725,291 @@
     </script>
 </body>
 </html>
-    <section id="comparison" class="section">
-        <h2>⚡ UNI vs. The Competition</h2>
-        <p class="section-description">
-            While others focus on single verticals, UNI is building the complete real-world operating system.
-        </p>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI vs Competitors</title>
+    <style>
+        :root {
+            --primary-blue: #00d4ff;
+            --secondary-blue: #0099cc;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border-color: rgba(0, 212, 255, 0.3);
+        }
 
-        <!-- Comparison Table Container -->
-        <div 
-        <div style="background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px); border-radius: 25px; border: 2px solid var(--border-color); overflow: hidden; box-shadow: 0 0 60px rgba(0, 255, 255, 0.2), inset 0 0 60px rgba(255, 0, 128, 0.05);">
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse;">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .table-container {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(0, 255, 255, 0.2), inset 0 0 60px rgba(255, 0, 128, 0.05);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead tr {
+            border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+        }
+
+        th {
+            padding: 24px 32px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-right: 1px solid rgba(0, 255, 255, 0.2);
+            position: relative;
+        }
+
+        th:first-child {
+            text-align: left;
+            color: var(--secondary-blue);
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        .uni-header {
+            text-align: center;
+        }
+
+        .uni-title {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .uni-underline {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .competitor-header {
+            text-align: center;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        td {
+            padding: 20px 32px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            vertical-align: top;
+        }
+
+        td:first-child {
+            color: var(--text-secondary);
+            font-weight: 600;
+            background: rgba(0, 212, 255, 0.02);
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        .uni-cell {
+            text-align: center;
+            color: var(--text-primary);
+            font-weight: 700;
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .competitor-cell {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .checkmark {
+            font-size: 28px;
+            color: #00ff88;
+            text-shadow: 0 0 15px #00ff88;
+            animation: pulse 2s infinite;
+        }
+
+        .cross {
+            font-size: 24px;
+            color: #ff4444;
+            text-shadow: 0 0 10px #ff4444;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            th, td {
+                padding: 16px 20px;
+                font-size: 12px;
+            }
+            
+            .uni-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>UNI vs Competitors</h1>
+        <p class="subtitle">Comprehensive Platform Comparison Analysis</p>
+        
+        <div class="table-container">
+            <div class="table-wrapper">
+                <table>
                     <thead>
-                        <tr style="border-bottom: 2px solid rgba(0, 255, 255, 0.2);">
-                            <th style="text-align: left; padding: 24px 32px; color: var(--secondary-blue); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; border-right: 1px solid rgba(0, 255, 255, 0.2);">
-                                Category
+                        <tr>
+                            <th>Category</th>
+                            <th class="uni-header">
+                                <div class="uni-title">UNI</div>
+                                <div class="uni-underline"></div>
                             </th>
-                            <th style="text-align: center; padding: 24px 32px; border-right: 1px solid rgba(0, 255, 255, 0.2); position: relative;">
-                                <div style="background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 24px; font-weight: 900; margin-bottom: 8px;">UNI</div>
-                                <div style="width: 60px; height: 3px; background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue)); margin: 0 auto; border-radius: 2px;"></div>
-                            </th>
-                            <th style="text-align: center; padding: 24px 32px; color: var(--text-muted); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-right: 1px solid rgba(255, 255, 255, 0.1);">Snapchat</th>
-                            <th style="text-align: center; padding: 24px 32px; color: var(--text-muted); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-right: 1px solid rgba(255, 255, 255, 0.1);">Eventbrite</th>
-                            <th style="text-align: center; padding: 24px 32px; color: var(--text-muted); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Meetup</th>
+                            <th class="competitor-header">Snapchat</th>
+                            <th class="competitor-header">Eventbrite</th>
+                            <th class="competitor-header">Meetup</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="fade-in" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;">
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); font-weight: 600;">Primary Purpose</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-primary); font-weight: 700;">Real-world operating system</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-muted);">AR social messaging</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-muted);">Event ticketing</td>
-                            <td style="padding: 20px 32px; text-align: center; color: var(--text-muted);">Group meetups</td>
+                        <tr>
+                            <td>Use Case</td>
+                            <td class="uni-cell">Full-on Day Planning, Relationship Discovery (Romantic, Platonic, Social), Event Discovery, Hosting & Promotion, City Guide & Travel Companion</td>
+                            <td class="competitor-cell">Send temporary visual and text messages to friends and consume user created media</td>
+                            <td class="competitor-cell">Event ticketing</td>
+                            <td class="competitor-cell">Discover local events & groups</td>
                         </tr>
-                        <tr class="fade-in" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;">
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); font-weight: 600;">Revenue Model</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-primary); font-weight: 700;">Multi-stream ecosystem</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-muted);">Ads & AR services</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-muted);">Fees per ticket</td>
-                            <td style="padding: 20px 32px; text-align: center; color: var(--text-muted);">Organizer subscriptions</td>
+                        <tr>
+                            <td>Revenue Model</td>
+                            <td class="uni-cell">Ads, Insights Reports, Venue Management Solutions, Consumer Subscriptions, API commissions, and Encore Coins micro transactions</td>
+                            <td class="competitor-cell">Ads & premium subscriptions</td>
+                            <td class="competitor-cell">Fees per ticket</td>
+                            <td class="competitor-cell">Organizer subscriptions</td>
                         </tr>
-                        <tr class="fade-in" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;">
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); font-weight: 600;">Offline Behavior Tracking</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 28px; color: #00ff88; text-shadow: 0 0 15px #00ff88; animation: pulse 2s infinite;">✅</span>
+                        <tr>
+                            <td>Cross-Vertical Synergy</td>
+                            <td class="uni-cell">
+                                <span class="checkmark">✅</span>
                             </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
+                            <td class="competitor-cell">
+                                <span class="cross">❌</span>
                             </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
+                            <td class="competitor-cell">
+                                <span class="cross">❌</span>
                             </td>
-                            <td style="padding: 20px 32px; text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                        </tr>
-                        <tr class="fade-in" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;">
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); font-weight: 600;">Real-Time Personalization</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 28px; color: #00ff88; text-shadow: 0 0 15px #00ff88; animation: pulse 2s infinite;">✅</span>
-                            </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                            <td style="padding: 20px 32px; text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
+                            <td class="competitor-cell">
+                                <span class="cross">❌</span>
                             </td>
                         </tr>
-                        <tr class="fade-in" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;">
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); font-weight: 600;">In-App Economy</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 28px; color: #00ff88; text-shadow: 0 0 15px #00ff88; animation: pulse 2s infinite;">✅</span>
-                                <div style="font-size: 12px; color: var(--secondary-blue); margin-top: 5px; font-weight: 600;">(Encore Coins)</div>
-                            </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                            <td style="padding: 20px 32px; text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                        </tr>
-                        <tr class="fade-in" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;">
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); font-weight: 600;">Cross-Vertical Synergy</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 28px; color: #00ff88; text-shadow: 0 0 15px #00ff88; animation: pulse 2s infinite;">✅</span>
-                            </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                            <td style="padding: 20px 32px; text-align: center;">
-                                <span style="font-size: 24px; color: #ff4444; text-shadow: 0 0 10px #ff4444;">❌</span>
-                            </td>
-                        </tr>
-                        <tr class="fade-in" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;">
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); font-weight: 600;">Data Utility</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-primary); font-weight: 700;">High – behavior, motion, preference</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-muted);">Medium – media interaction</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center; color: var(--text-muted);">Low – attendance only</td>
-                            <td style="padding: 20px 32px; text-align: center; color: var(--text-muted);">Low – group activity logs</td>
-                        </tr>
-                        <tr class="fade-in" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;">
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-secondary); font-weight: 600;">Real-World Social OS?</td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 32px; color: #00ff88; text-shadow: 0 0 20px #00ff88; animation: pulse 2s infinite;">✅</span>
-                            </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 28px; color: #ff4444; text-shadow: 0 0 15px #ff4444;">❌</span>
-                            </td>
-                            <td style="padding: 20px 32px; border-right: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                                <span style="font-size: 28px; color: #ff4444; text-shadow: 0 0 15px #ff4444;">❌</span>
-                            </td>
-                            <td style="padding: 20px 32px; text-align: center;">
-                                <span style="font-size: 28px; color: #ff4444; text-shadow: 0 0 15px #ff4444;">❌</span>
-                            </td>
+                        <tr>
+                            <td>Data Substance</td>
+                            <td class="uni-cell">What users like, how they plan, who they go out with, how they redeem rewards, etc.</td>
+                            <td class="competitor-cell">What creator content do they consume</td>
+                            <td class="competitor-cell">Attendance habits</td>
+                            <td class="competitor-cell">Group activity engagement</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
             </div>
         </div>
 
